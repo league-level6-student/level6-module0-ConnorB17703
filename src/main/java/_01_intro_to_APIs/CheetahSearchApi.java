@@ -92,6 +92,16 @@ public class CheetahSearchApi {
                 .retrieve()
                 .bodyToMono(Result[].class);
 
+        Mono<String> cheetahSTR = webClient
+                .get()
+                .uri(uriBuilder -> uriBuilder
+                        .queryParam("q", topic)
+                        .build())
+                .retrieve()
+                .bodyToMono(String.class);
+        
+        System.out.println(cheetahSTR.block());
+        
         return cheetahMono.block();
     }
 
