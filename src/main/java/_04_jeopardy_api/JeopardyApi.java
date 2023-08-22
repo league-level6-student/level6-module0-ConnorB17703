@@ -39,9 +39,20 @@ public class JeopardyApi {
         //
         //Make sure to save the response as type Clue[].class in the bodyToMono() method call
 
+    	Mono<Clue[]> clue = webClient
+    			.get()
+    			.retrieve()
+    			.bodyToMono(Clue[].class);
+    	
+    	
         //2
         //Get a random number less than the size of the Clue array
 
+    	
+    	//how do you get the size of clue array???
+    	Random r = new Random();
+    	int randomNum = r.nextInt(clue.length);
+    	
         //3
         //return the clue at the random index you just created
 
