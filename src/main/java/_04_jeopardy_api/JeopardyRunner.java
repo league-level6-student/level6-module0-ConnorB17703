@@ -1,5 +1,6 @@
 package _04_jeopardy_api;
 
+import _04_jeopardy_api.data_transfer_objects.Category;
 import _04_jeopardy_api.data_transfer_objects.Clue;
 
 import javax.swing.*;
@@ -9,10 +10,9 @@ public class JeopardyRunner {
     public static void main(String[] args) {
 
         JeopardyApi jeopardyApi = new JeopardyApi();
-        Clue clue = new Clue();
 
         //1. Create a score variable
-        int score;
+        int score = 0;
         
         //2. Add a for loop where:
         //i starts at 100,
@@ -21,10 +21,24 @@ public class JeopardyRunner {
         for(int i = 100; i<= 1000; i+=100) {
         	
         	if(i ==700 || i ==900) {
-        		jeopardyApi.getClue(i);
-        		String question = 
+        		continue;
         	}
         	
+        	Clue c = jeopardyApi.getClue(i);
+    		String question = c.getQuestion();
+    		String answer = c.getAnswer();
+    		String title = c.getCategory().getTitle();
+    		
+
+    		String a = JOptionPane.showInputDialog(question);
+    		if(a.equals(answer)) {
+    			score++;
+    		}
+    		
+    		System.out.println("Answer: " + answer);
+    		
+    		System.out.println("Score: " + score);
+    		JOptionPane.showMessageDialog(null, "Score: " + score);
         	
         }
 
@@ -43,6 +57,8 @@ public class JeopardyRunner {
             //8. Use a JOptionPane to display the question.
             //You can set the title of the JOptionPane to the question title.
 
+        
+        
             //9. If they got the question correct, add the value of that question to their score
 
         //10. Tell the user their final score

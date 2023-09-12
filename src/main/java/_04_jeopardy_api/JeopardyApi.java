@@ -48,14 +48,14 @@ public class JeopardyApi {
         //2
         //Get a random number less than the size of the Clue array
 
-    	
-    	//how do you get the size of clue array???
     	Random r = new Random();
-    	int randomNum = r.nextInt(clue.length);
+    	int randomNum = r.nextInt(clue.block().length);
     	
         //3
         //return the clue at the random index you just created
 
-        return null;
+    	System.out.println(clue.block()[randomNum].getQuestion());
+        return clue.block()[randomNum];
+        
     }
 }
