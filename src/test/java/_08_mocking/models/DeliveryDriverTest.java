@@ -12,19 +12,32 @@ import static org.mockito.Mockito.when;
 class DeliveryDriverTest {
 
     DeliveryDriver deliveryDriver;
+    
+    Car car;
+    
+    CellPhone cellphone;
 
     @BeforeEach
     void setUp() {
-
+    	
+    	MockitoAnnotations.openMocks(this);
+    	deliveryDriver = new DeliveryDriver("John", car, cellphone);
+    	
     }
 
     @Test
     void itShouldWasteTime() {
         //given
-
+    	boolean expectedResponse = true;
         //when
-
-        //then
+    	when(cellphone.browseCatMemes()).thenReturn(true);
+    	
+    	//figure out why wasteTime() method not coming out as true
+    	boolean actualResponse  = deliveryDriver.wasteTime();
+        
+    	//then
+    	assertEquals(expectedResponse, actualResponse);
+    	
     }
 
     @Test
