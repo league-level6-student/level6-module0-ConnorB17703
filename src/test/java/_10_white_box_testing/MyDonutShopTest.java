@@ -15,20 +15,42 @@ import static org.mockito.Mockito.*;
 
 class MyDonutShopTest {
 
+	@Mock
     MyDonutShop myDonutShop;
+	
+	@Mock
+	BakeryService bakeryService;
+	
+	@Mock
+	PaymentService paymentService;
+	
+	@Mock
+	DeliveryService deliveryService;
 
+	@Mock
+	Order order;
+	
     @BeforeEach
     void setUp() {
-
+    	
+    	MockitoAnnotations.openMocks(this);
+    	myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
+    	
     }
 
     @Test
     void itShouldTakeDeliveryOrder() throws Exception {
         //given
-
+    	boolean expectedResults = true;
+    	
+    	//NOTE: why isn't when method working and what kind of data should be returned to test?
+    	
         //when
-
+    	when(deliveryService.scheduleDelivery(order)).thenReturn(true);
+    	Order actualResults = myDonutShop.addOrder(order);
+    	
         //then
+    	
     }
 
     @Test
