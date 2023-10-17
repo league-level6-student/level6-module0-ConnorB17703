@@ -13,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 class MyDonutShopTest {
 
 	@Mock
@@ -34,32 +36,36 @@ class MyDonutShopTest {
     void setUp() {
     	
     	MockitoAnnotations.openMocks(this);
-    	myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
+    	//myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
     	
     }
 
     @Test
     void itShouldTakeDeliveryOrder() throws Exception {
         //given
-    	boolean expectedResults = true;
-    	
-    	//NOTE: why isn't when method working and what kind of data should be returned to test?
-    	
+    	order  = new Order ("John", "6195177937", 5, 6, "12323", true);
+    
+    	myDonutShop.openForTheDay();
+    	when(bakeryService.getDonutsRemaining()).thenReturn(50);
         //when
-    	when(deliveryService.scheduleDelivery(order)).thenReturn(true);
-    	Order actualResults = myDonutShop.addOrder(order);
+    	myDonutShop.takeOrder(order);
     	
         //then
-    	
+    	verify(myDonutShop, times(1)).takeOrder(order);
     }
 
+    //NOTE: you are verifying how many times method is being called and using the when to stub (force) outcomes on methods
+    
     @Test
     void givenInsufficientDonutsRemaining_whenTakeOrder_thenThrowIllegalArgumentException() {
         //given
 
+    	
         //when
 
+    	
         //then
+    
     }
 
     @Test
