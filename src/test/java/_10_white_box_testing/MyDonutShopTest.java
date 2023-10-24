@@ -57,15 +57,19 @@ class MyDonutShopTest {
     //NOTE: you are verifying how many times method is being called and using the when to stub (force) outcomes on methods
     
     @Test
-    void givenInsufficientDonutsRemaining_whenTakeOrder_thenThrowIllegalArgumentException() {
+    void givenInsufficientDonutsRemaining_whenTakeOrder_thenThrowIllegalArgumentException() throws IllegalArgumentException {
         //given
-
+    	order = new Order("John", "6195177937", 5, 6, "12323", true);
     	
         //when
-
+    	myDonutShop.openForTheDay();
+    	bakeryService.setDonutsRemaining(3);
     	
         //then
-    
+    	//Why is it saying that there's nothing being thrown in???
+    	Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> myDonutShop.takeOrder(order));
+    	assertEquals(exceptionThrown.getMessage(), "Insufficient donuts remaining");
+    	
     }
 
     @Test
