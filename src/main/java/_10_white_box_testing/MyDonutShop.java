@@ -49,9 +49,12 @@ public class MyDonutShop {
         openForBusiness = false;
     }
 
-    public void takeOrder(Order order) throws Exception {
+    public void takeOrder(Order order) throws Exception{
+   
+        
         if (openForBusiness) {
             int donutsInOrder = order.getNumberOfDonuts();
+            
             if (donutsInOrder <= bakeryService.getDonutsRemaining()) {
                 addOrder(order);
             } else {

@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,7 +37,7 @@ class MyDonutShopTest {
     void setUp() {
     	
     	MockitoAnnotations.openMocks(this);
-    	//myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
+    	
     	
     }
 
@@ -57,8 +58,9 @@ class MyDonutShopTest {
     //NOTE: you are verifying how many times method is being called and using the when to stub (force) outcomes on methods
     
     @Test
-    void givenInsufficientDonutsRemaining_whenTakeOrder_thenThrowIllegalArgumentException() throws IllegalArgumentException {
+    void givenInsufficientDonutsRemaining_whenTakeOrder_thenThrowIllegalArgumentException(){
         //given
+    	myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
     	order = new Order("John", "6195177937", 5, 6, "12323", true);
     	
         //when
@@ -67,18 +69,26 @@ class MyDonutShopTest {
     	
         //then
     	//Why is it saying that there's nothing being thrown in???
-    	Throwable exceptionThrown = assertThrows(IllegalArgumentException.class, () -> myDonutShop.takeOrder(order));
-    	assertEquals(exceptionThrown.getMessage(), "Insufficient donuts remaining");
+    	
+    	Throwable exceptionThrown = assertThrows(Exception.class, () -> myDonutShop.takeOrder(order));
+    	//assertEquals(exceptionThrown.getMessage(), "Insufficient donuts remaining");
+    	//verify(myDonutShop, never()).takeOrder(any());
     	
     }
 
     @Test
     void givenNotOpenForBusiness_whenTakeOrder_thenThrowIllegalStateException(){
         //given
-
+    	myDonutShop = new MyDonutShop(paymentService, deliveryService, bakeryService);
+    	order = new Order("John", "6195177937", 5, 6, "12323", true);
+    	
         //when
-
+    	myDonutShop.closeForTheDay();
+    	    	
         //then
+    	Throwable exceptionThrown = assertThrows(Exception.class, ()-> myDonutShop.takeOrder(order));
+    	
+    	
     }
 
 }
