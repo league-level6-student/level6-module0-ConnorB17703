@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.*;
 
 /*
@@ -19,18 +20,32 @@ class LeagueOfAmazingAstronautsTest {
 
     LeagueOfAmazingAstronauts underTest = new LeagueOfAmazingAstronauts();
 
+    @Mock 
+    Rocketship rocketship;
+    
+    @Mock
+    Astronaut astronaut;
+    
+    
     @BeforeEach
     void setUp() {
-
+    	MockitoAnnotations.openMocks(this);
+    	
     }
 
     @Test
     void itShouldPrepareAstronaut() {
         //given
-
+    	boolean expectedResults  = true;
+    	
+    	//WHY ISNT WHEN OR VERIFY WORKING???
+    	
         //when
-
+    	when(astronaut.train()).thenReturn(true);
+    	
+    	boolean actualResults = astronaut.isTrained();
         //then
+    	verify(expectedResults, actualResults);
     }
 
     @Test
