@@ -87,7 +87,7 @@ class MyDonutShopTest {
     	    	
         //then
     	Throwable exceptionThrown = assertThrows(Exception.class, ()-> myDonutShop.takeOrder(order));
-    	
+    	 
     	
     }
 

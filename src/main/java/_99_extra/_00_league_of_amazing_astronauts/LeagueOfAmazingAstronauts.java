@@ -14,7 +14,7 @@ public class LeagueOfAmazingAstronauts {
         astronaut.train();
         rocketship.loadOccupant(astronaut);
     }
-
+ 
     public void launchRocket(String destination){
         if(rocketship.isLoaded()) {
             int milesToDesination = 0;
