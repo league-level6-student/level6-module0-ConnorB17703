@@ -27,6 +27,8 @@ class LeagueOfAmazingAstronautsTest {
     @Mock
     Astronaut astronaut;
     
+    Astronaut astro = new Astronaut(); 
+    
     
     @BeforeEach
     void setUp() {
@@ -41,44 +43,61 @@ class LeagueOfAmazingAstronautsTest {
     	boolean expectedResults  = true;    	
     	
         //when
-    	underTest.prepareAstronaut(astronaut);
-    	astronaut.train();
-    	when(astronaut.isTrained()).thenReturn(true);
+    	underTest.prepareAstronaut(astro);
+    	//astronaut.train();
+    	//when(astronaut.isTrained()).thenReturn(true);
+    	
         //then
     	
-    	verify(underTest, times(1)).prepareAstronaut(astronaut);
-    	//assertEquals(expectedResults, astronaut.isTrained());
+    	//verify(underTest, times(1)).prepareAstronaut(astronaut);
+    	assertEquals(expectedResults, astro.isTrained());
+    	
     }
 
     @Test
     void itShouldLaunchRocket() {
         //given
+    	underTest.setRocketship(rocketship);
     	
     	
         //when
+    	when(rocketship.isLoaded()).thenReturn(true);
+    	underTest.launchRocket("Mars");
     	
     	
         //then
-    
+    	verify(rocketship, times(1)).launch();
+    	
     }
 
 
     @Test
     void itShouldThrowWhenDestinationIsUnknown() {
         //given
-
+    	underTest.setRocketship(rocketship);
+    	//rocketship.setDestination("Venus", 20000);
+    	
         //when
+    	when(rocketship.isLoaded()).thenReturn(true);
+    	
+    	
         //then
+    	assertThrows(Exception.class, ()-> underTest.launchRocket("Venus"));
+    	
     }
 
     @Test
     void itShouldThrowNotLoaded() {
         //given
-
-        //when
+    	underTest.setRocketship(rocketship);
     	
+        //when
+    	underTest.launchRocket("Mars");
     	
         //then
-   
+    	assertThrows(IllegalStateException.class, ()-> underTest.launchRocket("Mars"));
+    	//not checking correctly
+    	
+    	
     }
 }
